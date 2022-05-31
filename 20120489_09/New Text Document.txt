@@ -1,0 +1,16 @@
+function N = daThucNewton(xx, yy)
+    len = size(xx, 2);
+    syms x;
+    N = 0;
+    Ni = zeros(len);
+    Ni(1, 1:end) = yy;
+    T = 1;
+    N = N + Ni(1) * T;
+    for ii=1:(len - 1)
+        T = T * (x - xx(ii));
+        Ni(ii + 1, 1:(end - ii)) = (Ni(ii, 2:(end - ii + 1)) - Ni(ii, 1:(end - ii))) ./ ...
+            (xx((ii + 1):end) - xx(1:(end - ii)));
+        N = N + Ni(ii + 1, 1) * T;
+    end
+    N = simplify(N);
+end
